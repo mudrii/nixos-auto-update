@@ -4,7 +4,7 @@ moduleConfig:
 with lib;
 
 {
-  options.services.nixos-auto-update = with types;{
+  options.services.nixos-sys-auto-update = with types;{
     enable = mkEnableOption "Auto update NixOS weekly";
     gitPackage = mkOption {
       type = package;
@@ -14,7 +14,7 @@ with lib;
 
   config =
     let
-      cfg = config.services.nixos-auto-update;
+      cfg = config.services.nixos-sys-auto-update;
       gitPath = "${cfg.gitPackage}/bin/git";
       mkStartScript = name: pkgs.writeShellScript "${name}.sh" ''
         set -euo pipefail
@@ -27,7 +27,7 @@ with lib;
     in
     mkIf cfg.enable (
       moduleConfig rec {
-        name = "nixos-auto-update";
+        name = "nixos-sys-auto-update";
         description = "Auto update NixOS weekly";
         serviceConfig = {
           ExecStart = "${mkStartScript name}";

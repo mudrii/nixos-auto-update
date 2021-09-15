@@ -10,7 +10,7 @@ Experimental support for upadting the Nixos with the latest update from github r
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixos-auto-update.url ="github:thirusk86/nixos-auto-update/main";
+    nixos-auto-update.url ="github:mudrii/nixos-sys-auto-update/main";
   };
 
   outputs = inputs@{self, nixpkgs, ...}: {
@@ -21,19 +21,22 @@ Experimental support for upadting the Nixos with the latest update from github r
         modules = [
           ./configuration.nix
           {
-            imports = [ inputs.nixos-auto-update.nixosModules.system ];
+            imports = [ inputs.nixos-sys-auto-update.nixosModules.system ];
           }
         ];
       };
   };
 }
 ```
+
 ### Enable the service
-systemctl enable nixos-auto-update.service
+
+systemctl enable nixos-sys-auto-update.service
 
 ### Start the service
-systemctl start nixos-auto-update.service
+
+systemctl start nixos-sys-auto-update.service
 
 ### Restart the service
 
-The service can be restarted with `systemctl restart nixos-auto-update` or by rebooting the machine.
+The service can be restarted with `systemctl restart nixos-sys-auto-update` or by rebooting the machine.
